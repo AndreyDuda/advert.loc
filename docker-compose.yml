@@ -10,7 +10,7 @@ services:
       - ./:/var/www
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "801:80"
+      - "80:80"
     depends_on:
       - php-fpm
       - php-cli
@@ -41,7 +41,7 @@ services:
     volumes:
       - ./docker/mysql:/var/lib/mysql
     ports:
-      - "33061:$DB_PORT"
+      - "3306:$DB_PORT"
     env_file:
       - .env
     environment:
@@ -53,5 +53,5 @@ services:
   redis:
     image: redis:3.0
     ports:
-      - "63791:6379"
+      - "6379:6379"
 
