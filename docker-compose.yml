@@ -41,7 +41,7 @@ services:
     volumes:
       - ./docker/mysql:/var/lib/mysql
     ports:
-      - "3306:$DB_PORT"
+      - "33061:$DB_PORT"
     env_file:
       - .env
     environment:
@@ -53,5 +53,5 @@ services:
   redis:
     image: redis:3.0
     ports:
-      - "6379:6379"
+      - "63791:6379"
 
