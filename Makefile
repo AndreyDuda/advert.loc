@@ -19,6 +19,9 @@ assets-dev:
 assets-watch:
     docker-compose exec node yarn run watch
 
+bash-nginx:
+   docker exec -it shopping-nginx /bin/bash
+
 perm:
     sudo chown ${USER}:${USER} bootstrap/cache -R
     sudo chown ${USER}:${USER} storage -R
