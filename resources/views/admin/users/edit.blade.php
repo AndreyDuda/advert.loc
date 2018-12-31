@@ -24,17 +24,16 @@
 
         <div class="form-group">
             <label for="status" class="col-form-label">Status</label>
-            <section id="status" type="email" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}" name="status">
+            <select id="status" class="form-control{{ $errors->has('status') ? ' is-invalid' : '' }}" name="status">
                 @foreach ($statuses as $value => $label)
-                    <option value="{{ $value }}" {{ $value === old('status', $user->status) ? 'selected' : '' }}>
-                        {{ $label }}
-                    </option>
-                @endforeach
-            </section>
-            @if ($error->has('email'))
-                <span class="invalid-feedback"><strong>{{ $erroras->first('status') }}</strong></span>
+                    <option value="{{ $value }}"{{ $value === old('status', $user->status) ? ' selected' : '' }}>{{ $label }}</option>
+                @endforeach;
+            </select>
+            @if ($errors->has('status'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('status') }}</strong></span>
             @endif
         </div>
+
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Save</button>

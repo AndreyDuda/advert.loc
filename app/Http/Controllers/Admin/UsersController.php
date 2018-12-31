@@ -83,6 +83,6 @@ class UsersController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.users.index');
     }
 }
