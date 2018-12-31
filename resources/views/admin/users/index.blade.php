@@ -1,4 +1,4 @@
-@extends('layouts.app)
+@extends('layouts.app')
 
 @section('content')
     @include('admin.users._nav')

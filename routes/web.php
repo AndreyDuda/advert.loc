@@ -24,12 +24,12 @@ Route::get('/cabinet', 'Cabinet\HomeController@index')->name('cabinet');
 Route::group(
     [
         'prefix'     => 'admin',
-        'as'         => 'admin',
+        'as'         => 'admin.',
         'namespace'  => 'Admin',
         'middleware' => ['auth'],
     ],
     function () {
         Route::get('/', 'HomeController@index')->name('home');
-        Route::resource('user', 'UsersController');
+        Route::resource('users', 'UsersController');
     }
 );

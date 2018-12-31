@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
 
     public function index()
@@ -83,6 +83,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.user.index');
     }
 }
