@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Entity\User;
+use App\Http\Requests\Users\CreateRequest;
+use App\Http\Requests\Users\UpdateRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
-
     public function index()
     {
         $users = User::orderBy('id', 'desc')->paginate(20);
@@ -26,22 +28,15 @@ class UsersController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        $this->validate($request, [
-            'name'  => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users'
-        ]);
-
-        $user = User::create([
-            'name'   => $request['name'],
-            'email'  => $request['email'],
-            'status' => User::STATUS_ACTIVE
-        ]);
+        $user = User::create($request->only(['name', 'email']) + [
+                'password' => bcrypt(Str::random()),
+                'status'   => User::STATUS_ACTIVE,
+            ]);
 
         return redirect()->route('admin.users.show', $user);
     }
-
 
     public function show(User $user)
     {
@@ -49,7 +44,6 @@ class UsersController extends Controller
             'user' => $user
         ]);
     }
-
 
     public function edit(User $user)
     {
@@ -64,16 +58,9 @@ class UsersController extends Controller
         ]);
     }
 
-
-    public function update(Request $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
-        $data = $this->validate($request, [
-            'name'   => 'required|string|max:255',
-            'email'  => 'required|string|email|max:255|unique:users,id,' . $user->id,
-            'status' => ['required', 'string', Rule::in([User::STATUS_WAIT, User::STATUS_ACTIVE])],
-        ]);
-
-        $user->update($data);
+        $user->update($request->only(['name', 'email', 'status']));
 
         return redirect()->route('admin.users.show', $user);
     }
