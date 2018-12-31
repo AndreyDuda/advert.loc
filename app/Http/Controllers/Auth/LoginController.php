@@ -32,9 +32,9 @@ class LoginController extends Controller
             $this->sendLockoutResponse($request);
         }
 
-        $authenticate = Auth::attemp(
+        $authenticate = Auth::attempt(
             $request->only(['email', 'password']),
-            $request->fielled('remember')
+            $request->filled('remember')
         );
 
         if ($authenticate) {
