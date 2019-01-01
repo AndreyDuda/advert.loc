@@ -2,19 +2,32 @@
 
 namespace App\Entity;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
 
 /**
- * Class User
- * @package App\Entity
  * @property int $id
  * @property string $name
+ * @property string $last_name
  * @property string $email
+ * @property string $phone
+ * @property bool $phone_verified
+ * @property string $password
+ * @property string $verify_token
+ * @property string $phone_verify_token
+ * @property Carbon $phone_verify_token_expire
+ * @property boolean $phone_auth
+ * @property string $role
  * @property string $status
- * @property string $verify_code
+ *
+ * @property Network[] networks
+ *
+ * @method Builder byNetwork(string $network, string $identity)
  */
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -23,7 +36,7 @@ class User extends Authenticatable
     public const STATUS_ACTIVE = 'active';
 
     protected $fillable = [
-        'name', 'email', 'password', 'status',
+        'name', 'email', 'password', 'verify_token', 'status',
     ];
 
     protected $hidden = [
@@ -52,12 +65,12 @@ class User extends Authenticatable
         ]);
     }
 
-    public static function isWait(): bool
+    public function isWait(): bool
     {
         return $this->status === self::STATUS_WAIT;
     }
 
-    public static function isActive(): bool
+    public function isActive(): bool
     {
         return $this->status === self::STATUS_ACTIVE;
     }
