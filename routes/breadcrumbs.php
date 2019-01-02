@@ -65,6 +65,10 @@ Breadcrumbs::register('adverts.show', function (Crumbs $crumbs, Advert $advert) 
     $crumbs->push($advert->title, route('adverts.show', $advert));
 });
 // Cabinet
+Breadcrumbs::register('cabinet', function (Crumbs $crumbs) {
+    $crumbs->parent('home');
+
+});
 Breadcrumbs::register('cabinet.home', function (Crumbs $crumbs) {
     $crumbs->parent('home');
     $crumbs->push('Cabinet', route('cabinet.home'));
