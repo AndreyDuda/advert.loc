@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class AddUserVertification extends Migration
 {
@@ -17,6 +18,10 @@ class AddUserVertification extends Migration
             $table->string('status', 16)->nullable();
             $table->string('verify_token')->nullable()->unique();
         });
+
+        DB::table('users')->update([
+            'status' => 'active'
+        ]);
     }
 
     /**
