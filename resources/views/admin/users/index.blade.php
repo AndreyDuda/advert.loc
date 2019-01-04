@@ -9,6 +9,7 @@
                 <th>Name</th>
                 <th>E-mail</th>
                 <th>Status</th>
+                <th>Role</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,13 @@
                         @endif
                         @if ($user->isActive())
                             <span class="badge badge-primary">Action</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($user->isAdmin())
+                            <span class="badge badge-secondary">Admin</span>
+                        @else
+                            <span class="badge badge-primary">User</span>
                         @endif
                     </td>
                 </tr>
