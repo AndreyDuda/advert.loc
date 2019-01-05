@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    @include('admin.regions._nav')
-    <form method="POST" action="{{ route('admin.regions.store') }}">
+    @include('admin.users._nav')
+    <form method="POST" action="{{ route('admin.users.store') }}">
         @csrf
         <div class="form-group">
             <label for="name" class="col-form-label">Name</label>
