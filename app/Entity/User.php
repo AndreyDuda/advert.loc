@@ -100,7 +100,7 @@ class User extends Authenticatable
         }
 
         if ($this->role === $role) {
-            throw new \DomainException('Role is already assigned');
+            throw new \DomainException('Role is already assigned.');
         }
 
         $this->update(['role' => $role]);
