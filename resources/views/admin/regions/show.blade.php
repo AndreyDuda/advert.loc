@@ -11,18 +11,7 @@
             <button class="btn btn-danger">Delete</button>
         </form>
     </div>
+<?php /** @var \App\Entity\Region $regions */?>
+    @include('admin.regions._list', ['regions' => $region->children])
 
-    <table class="table table-bordered table-striped">
-        <tbody>
-        <tr>
-            <th>ID</th><td>{{ $region->id }}</td>
-        </tr>
-        <tr>
-            <th>Name</th><td>{{ $region->name }}</td>
-        </tr>
-        <tr>
-            <th>Slug</th><td>{{ $region->slug }}</td>
-        </tr>
-        </tbody>
-    </table>
 @endsection

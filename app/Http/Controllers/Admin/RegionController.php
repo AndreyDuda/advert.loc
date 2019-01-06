@@ -16,7 +16,7 @@ class RegionController extends Controller
 {
     public function index()
     {
-        $regions = Region::orderBy('name')->paginate(30);
+        $regions = Region::where('parent_id', null)->orderBy('name')->get();
 
         return view('admin.regions.index', [
             'regions' => $regions
@@ -41,13 +41,13 @@ class RegionController extends Controller
         $this->validate($request, [
             'name'   => 'required|string|max:255|unique,name,NULL,id,parent_id,' . ($request['parent'] ?: 'NULL'),
             'slug'   => 'required|string|max:255|unique,name,NULL,id,parent_id,' . ($request['parent'] ?: 'NULL'),
-            'parent' => 'optional|exists:region,id'
+            'parent' => 'nullable|exists:region,id'
         ]);
 
         $region = Region::create([
-            'name'   => $request['name'],
-            'slug'   => $request['slug'],
-            'parent' => $request['parent']
+            'name'      => $request['name'],
+            'slug'      => $request['slug'],
+            'parent_id' => $request['parent']
         ]);
 
         return redirect()->route('admin.regions.show', $region);
