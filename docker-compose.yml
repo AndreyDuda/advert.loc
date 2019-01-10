@@ -24,6 +24,7 @@ services:
       - ./:/var/www
     depends_on:
       - mysql
+      - mysql-test
       - redis
   php-cli:
     build:
@@ -34,6 +35,7 @@ services:
       - ./:/var/www
     depends_on:
       - mysql
+      - mysql-test
       - redis
   mysql:
     image: mysql:5.7
@@ -49,6 +51,20 @@ services:
       - "MYSQL_USER=$DB_USERNAME"
       - "MYSQL_PASSWORD=$DB_PASSWORD"
       - "MYSQL_DATABASE=$DB_DATABASE"
+  mysql-test:
+    image: mysql:5.7
+    container_name: mysql-test
+    volumes:
+      - ./docker/mysql-test:/var/lib/mysql
+    ports:
+      - "33062:$DB_PORT"
+    env_file:
+      - .env
+    environment:
+      - "MYSQL_ROOT_PASSWORD=$DB_PASSWORD"
+      - "MYSQL_USER=$DB_USERNAME"
+      - "MYSQL_PASSWORD=$DB_PASSWORD"
+      - "MYSQL_DATABASE=test"
 
   redis:
     image: redis:3.0
