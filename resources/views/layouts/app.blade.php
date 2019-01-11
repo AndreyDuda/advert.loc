@@ -49,17 +49,17 @@
                             </li>
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" style="display: block;" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu" style="display: block;" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('admin.home') }}">Admin</a>
-                                    <a class="dropdown-item" href="{{ route('cabinet') }}">Cabinet</a>
+                                    <a class="dropdown-item" href="{{ route('cabinet.home') }}">Cabinet</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                       document.getElementById('logout-form').submit();">
+                                        Logout
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
