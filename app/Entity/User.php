@@ -40,7 +40,7 @@ class User extends Authenticatable
     public const ROLE_ADMIN    = 'admin';
 
     protected $fillable = [
-        'name', 'email', 'password', 'verify_token', 'status', 'role',
+        'name', 'last_name', 'email', 'password', 'verify_token', 'status', 'role',
     ];
 
     protected $hidden = [
