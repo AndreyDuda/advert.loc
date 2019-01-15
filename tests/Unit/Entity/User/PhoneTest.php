@@ -9,7 +9,6 @@
 namespace Tests\Unit\Entity\User;
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Entity\User;
@@ -66,7 +65,7 @@ class PhoneTest extends TestCase
            'phone_verify_token' => null
        ]);
 
-       self::assertTrue($user->isPhoneVerified());
+       self::assertFalse($user->isPhoneVerified());
 
        $user->requestPhoneVerification(Carbon::now());
 
@@ -111,7 +110,7 @@ class PhoneTest extends TestCase
            'phone'                     => '79000000000',
            'phone_verified'            => false,
            'phone_verify_token'        => $token = 'token',
-           'phone_verify_token_expire' => $now = Carbon::now()
+           'phone_verify_token_expire' => $now   = Carbon::now()
        ]);
 
        self::assertFalse($user->isPhoneVerified());
@@ -137,17 +136,15 @@ class PhoneTest extends TestCase
 
    public function testVerifyExpiredToken(): void
    {
-        /** @var User $user */
-        $user = factory(User::class)->create([
-            'phone'                     => '79000000000',
-            'phone_verified'            => false,
-            'phone_verify_token'        => $token = 'token',
-            'phone_verify_token_expire' => $now = Carbon::now()
-        ]);
-
-
-        $this->expectExceptionMessage('Token is expired.');
-        $user->verifyPhone($token, $now->copy()->subSeconds(500));
+       /** @var User $user */
+       $user = factory(User::class)->create([
+           'phone'                     => '79000000000',
+           'phone_verified'            => false,
+           'phone_verify_token'        => $token = 'token',
+           'phone_verify_token_expire' => $now   = Carbon::now(),
+       ]);
+       $this->expectExceptionMessage('Token is expired.');
+       $user->verifyPhone($token, $now->copy()->addSeconds(500));
    }
 
 }
