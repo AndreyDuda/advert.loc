@@ -94,10 +94,7 @@ class UsersController extends Controller
             User::STATUS_ACTIVE => 'Active'
         ];
 
-        $roles = [
-            User::ROLE_USER  => 'User',
-            User::ROLE_ADMIN => 'Admin'
-        ];
+        $roles = User::roleList();
 
         return view('admin.users.edit', [
             'user'     => $user,

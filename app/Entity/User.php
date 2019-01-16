@@ -36,8 +36,9 @@ class User extends Authenticatable
     public const STATUS_WAIT   = 'wait';
     public const STATUS_ACTIVE = 'active';
 
-    public const ROLE_USER     = 'user';
-    public const ROLE_ADMIN    = 'admin';
+    public const ROLE_USER      = 'user';
+    public const ROLE_MODERATOR = 'moderator';
+    public const ROLE_ADMIN     = 'admin';
 
     protected $fillable = [
         'name', 'last_name', 'email', 'phone', 'password', 'verify_token', 'status', 'role',
@@ -51,6 +52,15 @@ class User extends Authenticatable
         'phone_verified'            => 'boolean',
         'phone_verify_token_expire' => 'datetime'
     ];
+
+    public static function roleList(): array
+    {
+        return [
+            self::ROLE_USER      => 'User',
+            self::ROLE_MODERATOR => 'Moderator',
+            self::ROLE_ADMIN     => 'Admin',
+        ];
+    }
 
     public static function register(string $name, string $email, string $password): self
     {
@@ -111,6 +121,11 @@ class User extends Authenticatable
         $this->update(['role' => $role]);
     }
 
+    public function isModerator(): bool
+    {
+        return $this->role === self::ROLE_MODERATOR;
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === self::ROLE_ADMIN;
@@ -158,6 +173,11 @@ class User extends Authenticatable
     public function isPhoneVerified(): bool
     {
         return $this->phone_verified;
+    }
+
+    public function isPhoneAuthEnabled(): bool
+    {
+        return (bool)$this->phone_auth;
     }
 
 
