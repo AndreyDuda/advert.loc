@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Cabinet\Adverts;
 
 use App\Entity\Adverts\Category;
 use App\Entity\Region;
+use App\Http\Requests\Adverts\CreateRequest;
+use App\UseCases\Adverts\AdvertService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class CreateController extends Controller
 {
     private $service;
-    public function __construct($service)
+    public function __construct(AdvertService $service)
     {
         $this->service = $service;
     }
@@ -29,7 +31,7 @@ class CreateController extends Controller
     {
         return view('cabinet.adverts.create.advert', compact('category', 'region'));
     }
-    public function store($request, Category $category, Region $region = null)
+    public function store(CreateRequest $request, Category $category, Region $region = null)
     {
         try {
             $advert = $this->service->create(
