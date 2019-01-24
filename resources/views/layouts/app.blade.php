@@ -11,8 +11,9 @@
     <title>Adverts</title>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js', 'build') }}" defer></script>
 
+    {{--<script src="{{ mix('js/app.js', 'build') }}" defer></script>--}}
+    {{--<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js" defer> </script>--}}
     <!-- Fonts -->
    {{-- <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">--}}
@@ -90,6 +91,8 @@
         </div>
     </footer>
 
-    <script src="{{mix("js/app.js", 'build')}}"></script>
+    <script src="{{mix("js/app.js", 'build')}}" defer></script>
+
+
 </body>
 </html>
