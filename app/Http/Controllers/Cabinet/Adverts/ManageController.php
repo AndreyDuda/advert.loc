@@ -14,15 +14,18 @@ use App\Http\Controllers\Controller;
 class ManageController extends Controller
 {
     private $service;
+
     public function __construct(AdvertService $service)
     {
         $this->service = $service;
     }
+
     public function editForm(Advert $advert)
     {
         $this->checkAccess($advert);
         return view('adverts.edit.advert', compact('advert'));
     }
+
     public function edit(EditRequest $request, Advert $advert)
     {
         $this->checkAccess($advert);
@@ -33,6 +36,7 @@ class ManageController extends Controller
         }
         return redirect()->route('adverts.show', $advert);
     }
+
     public function attributesForm(Advert $advert)
     {
         $this->checkAccess($advert);
@@ -48,11 +52,13 @@ class ManageController extends Controller
         }
         return redirect()->route('adverts.show', $advert);
     }
+
     public function photosForm(Advert $advert)
     {
         $this->checkAccess($advert);
         return view('adverts.edit.photos', compact('advert'));
     }
+
     public function photos(PhotosRequest $request, Advert $advert)
     {
         $this->checkAccess($advert);
@@ -63,6 +69,7 @@ class ManageController extends Controller
         }
         return redirect()->route('adverts.show', $advert);
     }
+
     public function send(Advert $advert)
     {
         $this->checkAccess($advert);
@@ -73,6 +80,7 @@ class ManageController extends Controller
         }
         return redirect()->route('adverts.show', $advert);
     }
+
     public function close(Advert $advert)
     {
         $this->checkAccess($advert);
@@ -83,6 +91,7 @@ class ManageController extends Controller
         }
         return redirect()->route('adverts.show', $advert);
     }
+
     public function destroy(Advert $advert)
     {
         $this->checkAccess($advert);
@@ -93,6 +102,7 @@ class ManageController extends Controller
         }
         return redirect()->route('cabinet.adverts.index');
     }
+
     private function checkAccess(Advert $advert): void
     {
         if (!Gate::allows('manage-own-advert', $advert)) {
