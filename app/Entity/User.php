@@ -53,7 +53,7 @@ class User extends Authenticatable
         'phone_verify_token_expire' => 'datetime'
     ];
 
-    public static function roleList(): array
+    public static function rolesList(): array
     {
         return [
             self::ROLE_USER      => 'User',
