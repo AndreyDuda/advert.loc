@@ -12,6 +12,7 @@ use App\Entity\Adverts\Advert;
 use App\Entity\Adverts\Category;
 use App\Entity\Region;
 use \App\Entity\User;
+use App\Events\Advert\ModerationPassed;
 use App\Http\Requests\Adverts\AttributesRequest;
 use App\Http\Requests\Adverts\EditRequest;
 use App\Http\Requests\Adverts\PhotosRequest;

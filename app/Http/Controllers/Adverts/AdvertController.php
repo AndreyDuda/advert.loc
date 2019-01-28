@@ -6,6 +6,8 @@ use App\Entity\Adverts\Advert;
 use App\Entity\Adverts\Category;
 use App\Entity\Region;
 use App\Http\Requests\Adverts\SearchRequest;
+use App\Http\Router\AdvertsPath;
+use App\UseCases\Adverts\SearchService;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
