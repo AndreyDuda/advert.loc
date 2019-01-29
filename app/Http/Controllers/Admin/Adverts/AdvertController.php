@@ -15,11 +15,13 @@ use App\Http\Controllers\Controller;
 class AdvertController extends Controller
 {
     private $service;
+
     public function __construct(AdvertService $service)
     {
         $this->service = $service;
         $this->middleware('can:manage-adverts');
     }
+
     public function index(Request $request)
     {
         $query = Advert::orderByDesc('updated_at');
@@ -41,15 +43,19 @@ class AdvertController extends Controller
         if (!empty($value = $request->get('status'))) {
             $query->where('status', $value);
         }
+
         $adverts = $query->paginate(20);
         $statuses = Advert::statusesList();
         $roles = User::rolesList();
+
         return view('admin.adverts.adverts.index', compact('adverts', 'statuses', 'roles'));
     }
+
     public function editForm(Advert $advert)
     {
         return view('adverts.edit.advert', compact('advert'));
     }
+
     public function edit(EditRequest $request, Advert $advert)
     {
         try {
@@ -57,12 +63,15 @@ class AdvertController extends Controller
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
+
         return redirect()->route('adverts.show', $advert);
     }
+
     public function attributesForm(Advert $advert)
     {
         return view('adverts.edit.attributes', compact('advert'));
     }
+
     public function attributes(AttributesRequest $request, Advert $advert)
     {
         try {
@@ -70,12 +79,15 @@ class AdvertController extends Controller
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
+
         return redirect()->route('adverts.show', $advert);
     }
+
     public function photosForm(Advert $advert)
     {
         return view('adverts.edit.photos', compact('advert'));
     }
+
     public function photos(PhotosRequest $request, Advert $advert)
     {
         try {
@@ -83,8 +95,10 @@ class AdvertController extends Controller
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
+
         return redirect()->route('adverts.show', $advert);
     }
+
     public function moderate(Advert $advert)
     {
         try {
@@ -92,12 +106,15 @@ class AdvertController extends Controller
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
+
         return redirect()->route('adverts.show', $advert);
     }
+
     public function rejectForm(Advert $advert)
     {
         return view('admin.adverts.adverts.reject', compact('advert'));
     }
+
     public function reject(RejectRequest $request, Advert $advert)
     {
         try {
@@ -105,8 +122,10 @@ class AdvertController extends Controller
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
+
         return redirect()->route('adverts.show', $advert);
     }
+
     public function destroy(Advert $advert)
     {
         try {
@@ -114,6 +133,7 @@ class AdvertController extends Controller
         } catch (\DomainException $e) {
             return back()->with('error', $e->getMessage());
         }
+
         return redirect()->route('admin.adverts.adverts.index');
     }
 }
