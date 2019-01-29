@@ -31,8 +31,8 @@ use Illuminate\Support\Str;
  */
 
 class User extends Authenticatable
-{
-    use HasApiTokens, Notifiable;
+{//HasApiTokens,
+    use Notifiable;
 
     public const STATUS_WAIT = 'wait';
 
