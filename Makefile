@@ -22,6 +22,9 @@ assets-watch:
 bash-nginx:
    docker exec -it shopping-nginx /bin/bash
 
+memory:
+    sudo sysctl -w vm.max_map_count=262144
+
 perm:
     sudo chown ${USER}:${USER} bootstrap/cache -R
     sudo chown ${USER}:${USER} storage -R

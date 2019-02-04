@@ -26,6 +26,7 @@ services:
       - mysql
       - mysql-test
       - redis
+      - elasticsearch
   php-cli:
     build:
       context: ./
@@ -37,6 +38,7 @@ services:
       - mysql
       - mysql-test
       - redis
+      - elasticsearch
   mysql:
     image: mysql:5.7
     container_name: mysql
@@ -51,6 +53,7 @@ services:
       - "MYSQL_USER=$DB_USERNAME"
       - "MYSQL_PASSWORD=$DB_PASSWORD"
       - "MYSQL_DATABASE=$DB_DATABASE"
+      - "ELASTICSEARCH_HOST=elasticsearch:9201"
   mysql-test:
     image: mysql:5.7
     container_name: mysql-test
@@ -78,4 +81,17 @@ services:
     volumes:
       - ./:/var/www
     tty: true
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./docker/elasticsearch:/var/lib/elasticsearch/data
+    ports:
+      - "9201:9201"
 
