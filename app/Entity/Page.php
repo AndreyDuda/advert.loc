@@ -9,8 +9,6 @@ class Page extends Model
 {
     use NodeTrait;
 
-    const test = 'sfsdf';
-
     protected $table = 'pages';
     protected $guarded = [];
 
@@ -22,10 +20,5 @@ class Page extends Model
     public function getMenuTitle(): string
     {
         return $this->menu_title ?: $this->title;
-    }
-
-    public static function test()
-    {
-        self::test;
     }
 }
